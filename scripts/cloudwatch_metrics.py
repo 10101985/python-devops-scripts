@@ -31,15 +31,13 @@ def obtener_cpu():
     datapoints = sorted(response['Datapoints'], key=lambda x: x['Timestamp'])
     
     if not datapoints:
-        print("\n  ⚠️  Sin datos — la instancia puede estar detenida")
-        print("  Los datos aparecen cuando la instancia está running")
+        print("\n  Sin datos — instancia detenida o sin métricas recientes")
     else:
-        print(f"\n  📊 CPU últimas 24 horas ({len(datapoints)} muestras):\n")
+        print(f"\n  CPU últimas 24 horas ({len(datapoints)} muestras):\n")
         for dp in datapoints[-5:]:
             tiempo = dp['Timestamp'].strftime('%H:%M')
             avg = dp['Average']
             maximo = dp['Maximum']
-            barra = '█' * int(avg) + '░' * (100 - int(avg))
             print(f"  {tiempo} | Avg: {avg:.1f}% | Max: {maximo:.1f}%")
     
     print("\n" + "=" * 60)
